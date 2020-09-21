@@ -7,7 +7,7 @@
           />
     </div>
     <div>
-      <h4>地级分布---四川省</h4>
+      <h4>地级分布---{{prefectureData.province_name}}</h4>
       <Prefecture 
       v-if="prefectureData.data.length > 0"
       :municipality='municipality'
@@ -27,9 +27,9 @@ export default {
     return {
       municipality: require('./mock/municipality'),
       prefectureData: {
-        province_name:'四川省',
-        data: require('./mock/res_prefecture'),
-        name: '四川'
+        province_name:'重庆市',
+        data: require('./mock/res_municipality'),
+        name: '重庆'
       },
       mapChartData: {
         data: require('./mock/res_provinvial')

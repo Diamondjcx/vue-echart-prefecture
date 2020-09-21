@@ -92,23 +92,26 @@ export default {
       const count = temp[0] && temp[0].count
       const proportion = temp[0] && (temp[0].proportion*100).toFixed(1)
       const province_name = this.handleData(this.chartData.province_name)
+      console.log('this.chartData',this.chartData);
+      console.log('municipality',this.municipality);
       const res_children = this.municipality.find((item) => {
-        return item.label === this.chartData.province_name
-      }).children;
+        return item.name === this.chartData.province_name
+      }).cities;
+      console.log('res_children',res_children);
         this.prefectureData = res_children.map((val) => {
           const obj = {
               province_name,
               proportion,
-              fullName: val.label,
+              fullName: val.name,
               value: count,
           };
           // 重庆数据处理
-          if(val.label==='梁平区') {
+          if(val.name==='梁平区') {
             return {name: '梁平县', ...obj}
-          } else if (val.label==='武隆区') {
+          } else if (val.name==='武隆区') {
             return {name: '武隆县', ...obj}
           }
-          return {name: val.label, ...obj}
+          return {name: val.name, ...obj}
         });
     },
     // 处理非直辖市数据

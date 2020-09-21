@@ -81,7 +81,6 @@ export default {
           const name = this.handleData(item.name) // 传入的名字不包含省字，地图才会显示出来
           return { name: name, fullName: item.name, value: item.count, proportion: (item.proportion*100).toFixed(1) }
       })
-      console.log('res',res);
       this.chart.setOption(
         {
           tooltip: {
