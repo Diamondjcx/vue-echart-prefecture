@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import App from './App.vue'
-import Prefecture from '../packages/index'
-import Provincial from '../packages/index'
-import '../packages/utils/city.js'
+// import Prefecture from '../packages/index'
+// import Provincial from '../packages/index'
 
-Vue.use(Provincial)
-Vue.use(Prefecture)
+import Map from '../packages/index'
 
+// Vue.use(Provincial)
+// Vue.use(Prefecture)
+
+Vue.use(Map)
 
 Vue.config.productionTip = false
 

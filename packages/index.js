@@ -1,5 +1,5 @@
 // packages / index.js
-
+import './utils/city.js'
 // 导入单个组件
 import Prefecture from './charts/prefecture/index'
 import Provincial from './charts/provincial/index'
