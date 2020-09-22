@@ -8,9 +8,9 @@ import theme from '../../plugins/theme.js'
 import resize from '../resize'
 
 
-const Municipality = ['北京','重庆','天津','上海'];
+const Municipality = ['北京', '重庆', '天津', '上海'];
 export default {
-  name:'Prefecture',
+  name: 'Prefecture',
   mixins: [resize],
   data () {
     return {
@@ -25,7 +25,7 @@ export default {
       type: Number,
       default: 400
     },
-    municipality:Array
+    municipality: Array
   },
   watch: {
     chartData: {
@@ -56,7 +56,7 @@ export default {
       this.chart = echarts.init(this.$el, theme)
       this.setOptions(this.chartData)
     },
-    handleData(name) {
+    handleData (name) {
       let res_name = ''
       if (name.includes('省') || name.includes('市')) {
         res_name = (name).slice(0, -1)
@@ -73,58 +73,55 @@ export default {
       }
       return res_name
     },
-    handlePrefectureData(chartData) {
+    handlePrefectureData (chartData) {
       const fullMunicipality = ['北京市', '重庆市', '天津市', '上海市'];
-      const {province_name} = chartData;
+      const { province_name } = chartData;
       // const temp = objDeepCopy(res.cities_counties)
       const temp = chartData.data;
-      if(fullMunicipality.includes(province_name)) {
-          this.handleMunicipalityPieData(temp)
-      } else  {
-          this.handlePieData(temp)
+      if (fullMunicipality.includes(province_name)) {
+        this.handleMunicipalityPieData(temp)
+      } else {
+        this.handlePieData(temp)
       }
     },
     // 处理直辖市数据
-    handleMunicipalityPieData(temp) {
-      if (!(temp&&temp.length)) {
+    handleMunicipalityPieData (temp) {
+      if (!(temp && temp.length)) {
         return
       }
       const count = temp[0] && temp[0].count
-      const proportion = temp[0] && (temp[0].proportion*100).toFixed(1)
+      const proportion = temp[0] && (temp[0].proportion * 100).toFixed(1)
       const province_name = this.handleData(this.chartData.province_name)
-      console.log('this.chartData',this.chartData);
-      console.log('municipality',this.municipality);
       const res_children = this.municipality.find((item) => {
         return item.name === this.chartData.province_name
       }).cities;
-      console.log('res_children',res_children);
-        this.prefectureData = res_children.map((val) => {
-          const obj = {
-              province_name,
-              proportion,
-              fullName: val.name,
-              value: count,
-          };
-          // 重庆数据处理
-          if(val.name==='梁平区') {
-            return {name: '梁平县', ...obj}
-          } else if (val.name==='武隆区') {
-            return {name: '武隆县', ...obj}
-          }
-          return {name: val.name, ...obj}
-        });
+      this.prefectureData = res_children.map((val) => {
+        const obj = {
+          province_name,
+          proportion,
+          fullName: val.name,
+          value: count,
+        };
+        // 重庆数据处理
+        if (val.name === '梁平区') {
+          return { name: '梁平县', ...obj }
+        } else if (val.name === '武隆区') {
+          return { name: '武隆县', ...obj }
+        }
+        return { name: val.name, ...obj }
+      });
     },
     // 处理非直辖市数据
     handlePieData (pie_data) {
       if (pie_data && pie_data.length !== 0) {
-        this.prefectureData= pie_data.map((item) => {
+        this.prefectureData = pie_data.map((item) => {
           const obj = {
             fullName: item.name,
-            value:item.count,
-            proportion: (item.proportion*100).toFixed(1)
+            value: item.count,
+            proportion: (item.proportion * 100).toFixed(1)
           };
-          if (this.province_name === '西藏自治区' && item.name==='那曲市') {
-              return { name: '那曲地区',...obj }
+          if (this.province_name === '西藏自治区' && item.name === '那曲市') {
+            return { name: '那曲地区', ...obj }
           }
           return { name: item.name, ...obj }
         })
@@ -153,17 +150,17 @@ export default {
           },
           // 提示框组件
           tooltip: {
-          trigger: 'item',
-          formatter: function (params) {
-              if(Municipality.includes(chartData.name)) {
-                return `${chartData.name}：${_this.prefectureData[0].value}（${_this.prefectureData[0].proportion}%）` 
+            trigger: 'item',
+            formatter: function (params) {
+              if (Municipality.includes(chartData.name)) {
+                return `${chartData.name}：${_this.prefectureData[0].value}（${_this.prefectureData[0].proportion}%）`
               } else {
                 if (params.data) {
-                  return`${params.data.fullName}：${ params.data.value}（${ params.data.proportion}%）` 
+                  return `${params.data.fullName}：${params.data.value}（${params.data.proportion}%）`
                 } else {
                   return params.name
                 }
-              }              
+              }
             }
           },
           // 视觉映射组件
@@ -198,7 +195,7 @@ export default {
               },
               // 高亮状态
               emphasis: {
-                areaColor: '#F3B329', 
+                areaColor: '#F3B329',
                 label: {
                   show: false,
                   color: '#fff'
@@ -213,29 +210,29 @@ export default {
         }
       )
     },
-    hoverChange() { // 处理直辖市，鼠标hover的时候，整个地图显示直辖市的名字以及数据
+    hoverChange () { // 处理直辖市，鼠标hover的时候，整个地图显示直辖市的名字以及数据
       const _this = this
       if (Municipality.includes(this.chartData.name)) {
-        this.chart.on("mouseover", function (params){
-                if(Municipality.includes(params.data&&params.data.province_name)){
-                        _this.chart.dispatchAction({
-                            type: 'highlight',
-                            seriesIndex: 0,
-                            seriesName: 'series0',
-                        });
-                    }
-                });
-            this.chart.on("mouseout", function (params){
-                  if(Municipality.includes(params.data&&params.data.province_name)){
-                      _this.chart.dispatchAction({
-                          type: 'downplay',
-                          seriesIndex: 0,
-                          seriesName: 'series0',
-                      });
-                  }
-              });
+        this.chart.on("mouseover", function (params) {
+          if (Municipality.includes(params.data && params.data.province_name)) {
+            _this.chart.dispatchAction({
+              type: 'highlight',
+              seriesIndex: 0,
+              seriesName: 'series0',
+            });
           }
+        });
+        this.chart.on("mouseout", function (params) {
+          if (Municipality.includes(params.data && params.data.province_name)) {
+            _this.chart.dispatchAction({
+              type: 'downplay',
+              seriesIndex: 0,
+              seriesName: 'series0',
+            });
+          }
+        });
       }
+    }
   }
 }
 </script>

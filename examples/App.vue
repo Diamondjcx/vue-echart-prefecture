@@ -1,20 +1,19 @@
 <template>
   <div id="app">
     <div>
-        <h4>省级分布</h4>
-        <Provincial v-if="mapChartData.data.length > 0"
-          :chartData="mapChartData"
-          />
+      <h4>省级分布</h4>
+      <Provincial v-if="mapChartData.data.length > 0"
+                  :chartData="mapChartData"
+                  :height='500' />
     </div>
     <div>
       <h4>地级分布---{{prefectureData.province_name}}</h4>
-      <Prefecture 
-      v-if="prefectureData.data.length > 0"
-      :municipality='municipality'
-      :chartData='prefectureData'
-      />
+      <Prefecture v-if="prefectureData.data.length > 0"
+                  :municipality='municipality'
+                  :chartData='prefectureData'
+                  :height='500' />
     </div>
-    
+
   </div>
 </template>
 
@@ -23,11 +22,11 @@
 
 export default {
   name: 'App',
-  data() {
+  data () {
     return {
       municipality: require('./mock/municipality'),
       prefectureData: {
-        province_name:'重庆市',
+        province_name: '重庆市',
         data: require('./mock/res_municipality'),
         name: '重庆'
       },

@@ -10,7 +10,7 @@ import resize from '../resize'
 
 
 export default {
-  name:'Provincial',
+  name: 'Provincial',
   mixins: [resize],
   data () {
     return {
@@ -47,7 +47,7 @@ export default {
     this.chart = null
   },
   methods: {
-    handleData(name) {
+    handleData (name) {
       let res_name = ''
       if (name.includes('省') || name.includes('市')) {
         res_name = (name).slice(0, -1)
@@ -69,7 +69,6 @@ export default {
       this.setOptions(this.chartData)
     },
     setOptions (chartData) {
-      console.log('chartData',chartData);
       // 获取最大值max
       // let max = chartData.data[0].value;
       // for (let i = 0; i < chartData.data.length - 1; i++) {
@@ -78,8 +77,8 @@ export default {
       // 处理data
       const temp = chartData.data
       let res = temp.map((item) => {
-          const name = this.handleData(item.name) // 传入的名字不包含省字，地图才会显示出来
-          return { name: name, fullName: item.name, value: item.count, proportion: (item.proportion*100).toFixed(1) }
+        const name = this.handleData(item.name) // 传入的名字不包含省字，地图才会显示出来
+        return { name: name, fullName: item.name, value: item.count, proportion: (item.proportion * 100).toFixed(1) }
       })
       this.chart.setOption(
         {
@@ -88,14 +87,14 @@ export default {
               if (!params.data) {
                 return
               }
-              return `${params.data.fullName}：${params.data.value}（${params.data.proportion}%）` 
+              return `${params.data.fullName}：${params.data.value}（${params.data.proportion}%）`
             },
-            backgroundColor:'rgba(255,255,255,0.7)',
-            borderColor:'#111',
-            borderWidth:1,
+            backgroundColor: 'rgba(255,255,255,0.7)',
+            borderColor: '#111',
+            borderWidth: 1,
             textStyle: {
               color: '#353535',
-              fontSize:12
+              fontSize: 12
             }
           },
           visualMap: //手柄
@@ -137,40 +136,40 @@ export default {
               }
             },
             regions: [ // 将南海诸岛和台湾隐藏
-                {
-                  name: "南海诸岛",
-                  value: 0,
-                  itemStyle: {
-                    normal: {
-                      opacity: 0,
-                      label: {
-                        show: false
-                      }
-                    }
-                  }
-                },
-                {
-                  name: "台湾",
-                  value: 0,
-                  itemStyle: {
-                    normal: {
-                      opacity: 0,
-                      label: {
-                        show: false
-                      }
+              {
+                name: "南海诸岛",
+                value: 0,
+                itemStyle: {
+                  normal: {
+                    opacity: 0,
+                    label: {
+                      show: false
                     }
                   }
                 }
-            ],
-            emphasis:{
-              areaColor: '#F3B329', 
-                  label: {
-                    show: false,
-                    color: '#fff'
-                  },
-                  itemStyle: {
-                    areaColor: '#F3B329'
+              },
+              {
+                name: "台湾",
+                value: 0,
+                itemStyle: {
+                  normal: {
+                    opacity: 0,
+                    label: {
+                      show: false
+                    }
                   }
+                }
+              }
+            ],
+            emphasis: {
+              areaColor: '#F3B329',
+              label: {
+                show: false,
+                color: '#fff'
+              },
+              itemStyle: {
+                areaColor: '#F3B329'
+              }
             },
           },
           grid: {

@@ -1,5 +1,3 @@
-// packages/textarea/index.js
-
 // 导入组件，组件必须声明 name
 import Provincial from './index.vue'
 

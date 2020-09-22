@@ -1,4 +1,5 @@
-// packages / index.js
+// 地图需要的数据
+// eg： china.js && 各个市区的数据
 import './utils/city.js'
 // 导入单个组件
 import Prefecture from './charts/prefecture/index'

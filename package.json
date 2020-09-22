@@ -1,5 +1,5 @@
 {
-  "name": "vue-echart-prefecture",
+  "name": "vue-echarts-map",
   "version": "0.1.2",
   "description": "vue echarts地图组件",
   "author": "diamondj",
@@ -10,17 +10,17 @@
     "echarts",
     "map"
   ],
-  "main": "lib/vue-echart-prefecture.umd.min.js",
+  "main": "lib/vue-echarts-map.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "lib": "vue-cli-service build --target lib --name vue-echart-prefecture --dest lib packages/index.js"
+    "lib": "vue-cli-service build --target lib --name vue-echarts-map --dest lib packages/index.js"
   },
-  "homepage": "https://github.com/Diamondjcx/vue-echart-prefecture.git",
+  "homepage": "https://github.com/Diamondjcx/vue-echarts-map.git",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Diamondjcx/vue-echart-prefecture.git"
+    "url": "https://github.com/Diamondjcx/vue-echarts-map.git"
   },
   "license": "MIT",
   "dependencies": {
